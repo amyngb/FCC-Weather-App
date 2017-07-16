@@ -4,6 +4,8 @@ var temp;
 var state;
 var city;
 var weather;
+var darkSkyData;
+var geoCodeData;
 
 
 /********Protect API keys********/
@@ -18,6 +20,24 @@ if(window.__env) {
   Object.assign(env, window.__env);
 }
 
+function getWeather (latitude, longitude) {
+  $.getJSON('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + env.darkSkyAPIKey +
+'/' + latitude + ',' + longitude + '?exclude=minutely,hourly,daily,alerts,flags',
+  function (response){
+    changeTemp(response);
+    console.log(response);
+  });
+}
+
+function getLocation(latitude, longitude) {
+  $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key='+env.googleApiKey,
+    function (response){
+      //do something
+      console.log(response);
+    });
+}
+
+
 /********Get Data********/
 $(document).ready(function() {
 //get geolocation
@@ -27,29 +47,13 @@ $(document).ready(function() {
       longitude = position.coords.longitude;
       console.log(latitude, longitude);
       //feed into Dark Sky
-      $.getJSON('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + env.darkSkyAPIKey + '/' + latitude + ',' + longitude + '?exclude=minutely,hourly,daily,alerts,flags',
-        function darkSky(result){
-          var jsonStringDark = JSON.stringify(result);
-          jsonStringDark = JSON.parse(jsonStringDark);
-          console.log(jsonStringDark);
-        });
-    //feed into Google Maps API to find city/state
-      $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key='+env.googleApiKey,
-        function geoCode(result){
-          var jsonStringGeocode = JSON.stringify(result);
-          //jsonStringGeocode = JSON.parse(jsonStringGeocode);
-          console.log(jsonStringGeocode);
-        });
-      });
- }
+      getWeather (latitude, longitude);
 
- //read Dark Sky 'currently' 'icon'
-
-
-
-
-
-});
+      //feed into Google Maps API to find city/state
+      getLocation(latitude, longitude);
+    });
+  };
+ })
 
 
 
@@ -60,9 +64,22 @@ $(document).ready(function() {
 /********Modify UI********/
 
 //change place name
-
+function changePlaceName(){
+  //do stuff
+}
 //change temperature
-
+function changeTemp(stuff){
+  $('#temp').html(stuff.currently.temperature);
+}
 //toggle between F and C
 
 //change icon
+function changeIcon(stuff){
+  $('#weather_icon').addClass 
+}
+
+//code bits
+/*darkSkyData = $.getJSON('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + env.darkSkyAPIKey +
+'/' + latitude + ',' + longitude + '?exclude=minutely,hourly,daily,alerts,flags');
+
+geoCodeData = $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key='+env.googleApiKey); */

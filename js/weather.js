@@ -8,6 +8,7 @@ var darkSkyData;
 var geoCodeData;
 
 
+
 /********Protect API keys********/
 //SET ENV Variable so it exists even if a person doesn't include their credentials.
 
@@ -25,17 +26,45 @@ function getWeather (latitude, longitude) {
 '/' + latitude + ',' + longitude + '?exclude=minutely,hourly,daily,alerts,flags',
   function (response){
     changeTemp(response);
+    changeIcon(response);
     console.log(response);
   });
 }
 
 function getLocation(latitude, longitude) {
   $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key='+env.googleApiKey,
-    function (response){
-      //do something
+    function(response) {
       console.log(response);
-    });
+      setLocation(response);
+  });
 }
+
+
+
+function setLocation(locationData) {
+    if (locationData.status == 'OK') {
+      var city = '';
+      var state = '';
+      var addComps = locationData.results[0].address_components;
+      for (var i = 0; i < addComps.length; i++) {
+        var types = addComps[i].types;
+        for (var j = 0; j < types.length; j++) {
+          console.log(types[0]);
+          if (types[0] == "locality") {
+            var city = addComps[i].long_name;
+            //break;
+          }
+          if (types[0] == 'administrative_area_level_1') {
+            var state = addComps[i].short_name;
+          //  break;
+          }
+        }
+      }
+      changePlaceName(city, state);
+    }
+
+  }
+
 
 
 /********Get Data********/
@@ -64,9 +93,11 @@ $(document).ready(function() {
 /********Modify UI********/
 
 //change place name
-function changePlaceName(){
-  //do stuff
+function changePlaceName(city, state){
+  $('#locality').html(city + ', ' + state);
 }
+
+
 //change temperature
 function changeTemp(stuff){
   $('#temp').html(stuff.currently.temperature);
@@ -75,7 +106,9 @@ function changeTemp(stuff){
 
 //change icon
 function changeIcon(stuff){
-  $('#weather_icon').addClass 
+  var skycons = new Skycons();
+  skycons.add('weather_icon', stuff.currently.icon.toString());
+  skycons.play();
 }
 
 //code bits

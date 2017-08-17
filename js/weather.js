@@ -6,6 +6,12 @@ var city;
 var weather;
 var darkSkyData;
 var geoCodeData;
+var degreesF;
+var degreesC;
+var htmlMeasure;
+
+
+
 
 
 
@@ -89,6 +95,21 @@ $(document).ready(function() {
 //read Dark Sky 'currently' 'icon'
 
 //toggle between C and F
+function toggleTemp() {
+  console.log(degreesC);
+
+    if (htmlMeasure == '&#8457') {
+      htmlMeasure = '&#8451';
+      $('#temp').html(degreesC + ' ' + htmlMeasure);
+    }
+    else if (htmlMeasure == '&#8451') {
+      htmlMeasure = '&#8457';
+      $('#temp').html(degreesF + ' ' + htmlMeasure);
+    }
+
+  }
+
+
 
 /********Modify UI********/
 
@@ -100,9 +121,23 @@ function changePlaceName(city, state){
 
 //change temperature
 function changeTemp(stuff){
-  $('#temp').html(stuff.currently.temperature);
+  degreesF = parseInt(stuff.currently.temperature.toFixed(0));
+  htmlMeasure = '&#8457';
+  degreesC = Math.round(degreesF * (5/9) - 32);
+  $('#temp').html(degreesF + ' ' + htmlMeasure);
+
 }
+
 //toggle between F and C
+
+
+  $('#temp').on('click', function() {
+    toggleTemp();
+  });
+
+
+
+
 
 //change icon
 function changeIcon(stuff){

@@ -2,11 +2,11 @@
 <head>
 
   <link type="text/css" rel="stylesheet" href="app.css"></link>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
+
+  <link rel="stylesheet" href="https://getbootstrap.com/dist/css/bootstrap.css"></link>
 
 </head>
 <body>
-
 
 <div class= 'container-fluid text-center'>
   <div class='title'>
@@ -14,16 +14,26 @@
   </div>
 
   <div class='row text-center'>
-    <div class='col-md-12'>
-      <h2 id='locality'>%Place%</h2>
-      <button id="temp"> %temperature% &#8457 </button>
-      <canvas id='weather_icon' class="wi-wu-chanceflurries snow-wind wi wi-snow-wind"></canvas>
+    <div class='col-sm-12 text-center'>
+      <h2 class='col-sm-12' id='locality'> Place </h2>
+      <div class="col-sm-4 col-lg-5"></div>
+      <button class='col-sm-4 col-lg-2 text-center btn btn-default'  id="temp"> Temp &#8457 </button>
+      <div class="col-sm-4 col-lg-5"></div>
+      <canvas class = 'col-sm-6 col-md-4 col-lg-3' id='weather_icon' class="wi-wu-chanceflurries snow-wind wi wi-snow-wind"></canvas>
     </div>
   </div>
 
+<div class="row text-center">
+  <div class="col-sm-12 Amy">
+  <p>Project coded by <a href='https://github.com/amyngb' target = "_blank"> Amy Bedinghaus </a> </p>
+
+  </div>
+</div>
 
 </div>
+
 </body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/env.js"></script>
 <script type="text/javascript" src="js/weather.js"></script>

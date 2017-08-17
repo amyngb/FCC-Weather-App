@@ -1,10 +1,26 @@
-body {
+
+.container-fluid {
  background: grey;
 }
-.wi {
-  font-size: 50px;
+
+.title {
+  padding: 50px;
 }
 
-button {
- 
+canvas {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.btn {
+  width: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+}
+.Amy {
+  padding-top: 5em;
+}
+a {
+  color: darkgrey;
 }

@@ -1,6 +1,7 @@
 
+
 .container-fluid {
- background: grey;
+  background: grey;
 }
 
 .title {
@@ -9,7 +10,7 @@
 
 canvas {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 }
 
 .btn {
@@ -19,8 +20,9 @@ canvas {
 
 }
 .Amy {
-  padding-top: 5em;
-}
-a {
-  color: darkgrey;
+  padding-top: 7em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }

@@ -27,10 +27,13 @@ if(window.__env) {
   Object.assign(env, window.__env);
 }
 
+
+//Access DarkSky and Google Geocode APIs
 function getWeather (latitude, longitude) {
   $.getJSON('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + env.darkSkyAPIKey +
 '/' + latitude + ',' + longitude + '?exclude=minutely,hourly,daily,alerts,flags',
   function (response){
+    //call functions to update UI
     changeTemp(response);
     changeIcon(response);
     console.log(response);
@@ -46,7 +49,7 @@ function getLocation(latitude, longitude) {
 }
 
 
-
+//Find Location data in Google Geocode API
 function setLocation(locationData) {
     if (locationData.status == 'OK') {
       var city = '';
@@ -66,6 +69,7 @@ function setLocation(locationData) {
           }
         }
       }
+      //call function to update UI
       changePlaceName(city, state);
     }
 
@@ -81,7 +85,8 @@ $(document).ready(function() {
       latitude = position.coords.latitude;
       longitude = position.coords.longitude;
       console.log(latitude, longitude);
-      //feed into Dark Sky
+
+      //feed into Dark Sky to find local weather
       getWeather (latitude, longitude);
 
       //feed into Google Maps API to find city/state
@@ -90,9 +95,6 @@ $(document).ready(function() {
   };
  })
 
-
-
-//read Dark Sky 'currently' 'icon'
 
 //toggle between C and F
 function toggleTemp() {
@@ -128,26 +130,14 @@ function changeTemp(stuff){
 
 }
 
-//toggle between F and C
-
-
+//click between F and C
   $('#temp').on('click', function() {
     toggleTemp();
   });
 
-
-
-
-
-//change icon
+//change weather icon
 function changeIcon(stuff){
   var skycons = new Skycons();
   skycons.add('weather_icon', stuff.currently.icon.toString());
   skycons.play();
 }
-
-//code bits
-/*darkSkyData = $.getJSON('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + env.darkSkyAPIKey +
-'/' + latitude + ',' + longitude + '?exclude=minutely,hourly,daily,alerts,flags');
-
-geoCodeData = $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key='+env.googleApiKey); */

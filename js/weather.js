@@ -96,7 +96,6 @@ $(document).ready(function() {
  })
 
 
-//toggle between C and F
 function toggleTemp() {
   console.log(degreesC);
 
@@ -110,6 +109,7 @@ function toggleTemp() {
     }
 
   }
+
 
 
 
